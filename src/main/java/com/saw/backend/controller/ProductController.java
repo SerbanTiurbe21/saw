@@ -18,7 +18,6 @@ public class ProductController {
     }
 
 
-
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
         return ResponseEntity.ok(productService.saveProduct(product));
