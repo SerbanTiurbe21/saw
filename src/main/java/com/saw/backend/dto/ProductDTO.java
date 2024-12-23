@@ -26,7 +26,7 @@ public class ProductDTO {
 
     private Integer stock;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDetailDTO> productDetails;
 
     @OneToMany(mappedBy = "product")

@@ -17,11 +17,12 @@ public class OrderDTO {
     private UserDTO user;
 
     @Column(nullable = false)
-    private java.util.Date orderDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date orderDate;
 
     private String status;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemDTO> orderItems;
 
     public Integer getOrderId() {

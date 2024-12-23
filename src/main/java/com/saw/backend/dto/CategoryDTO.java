@@ -17,7 +17,7 @@ public class CategoryDTO {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDTO> products;
 
     public Integer getCategoryId() {

@@ -2,6 +2,7 @@ package com.saw.backend.service.product;
 
 import com.saw.backend.dto.ProductDTO;
 import com.saw.backend.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductDTO saveProduct(final ProductDTO product) {
+        product.getProductDetails().forEach(productDetail -> productDetail.setProduct(product));
         return productRepository.save(product);
     }
 
