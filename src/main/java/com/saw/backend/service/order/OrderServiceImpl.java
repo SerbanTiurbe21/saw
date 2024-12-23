@@ -11,12 +11,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(final OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
     @Override
-    public OrderDTO saveOrder(OrderDTO order) {
+    public OrderDTO saveOrder(final OrderDTO order) {
         return orderRepository.save(order);
     }
 
@@ -26,17 +26,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO getOrderById(Integer orderId) {
+    public OrderDTO getOrderById(final Integer orderId) {
         return orderRepository.findById(Math.toIntExact(orderId)).orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
     @Override
-    public void deleteOrder(Integer orderId) {
+    public void deleteOrder(final Integer orderId) {
         orderRepository.deleteById(Math.toIntExact(orderId));
     }
 
     @Override
-    public List<OrderDTO> getOrdersByUserId(Integer userId) {
+    public List<OrderDTO> getOrdersByUserId(final Integer userId) {
         return orderRepository.findOrderDTOByUser_UserId(Math.toIntExact(userId));
     }
 }

@@ -16,18 +16,18 @@ public class AuthenticateController {
 
     private final AuthenticationService service;
 
-    public AuthenticateController(AuthenticationService service) {
+    public AuthenticateController(final AuthenticationService service) {
         this.service = service;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponseDTO> register(@RequestBody RegisterRequestDTO registerRequest) {
+    public ResponseEntity<AuthenticationResponseDTO> register(final @RequestBody RegisterRequestDTO registerRequest) {
         return ResponseEntity.ok(service.register(registerRequest));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponseDTO> authenticate(
-            @RequestBody AuthenticationRequestDTO request
+            final @RequestBody AuthenticationRequestDTO request
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }

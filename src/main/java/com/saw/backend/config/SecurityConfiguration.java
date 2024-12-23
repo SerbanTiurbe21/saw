@@ -20,52 +20,16 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {
-            "/api/v1/auth/register",
-            "/api/v1/auth/authenticate"
-    };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
-    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
+    public SecurityConfiguration(final JwtAuthenticationFilter jwtAuthFilter, final AuthenticationProvider authenticationProvider) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.authenticationProvider = authenticationProvider;
     }
 
-    private void sharedSecurityConfiguration(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-    }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        sharedSecurityConfiguration(http);
-//        http
-//                .securityMatcher("/api/categories")
-//                .securityMatcher("/api/orders")
-//                .securityMatcher("/api/products")
-//                .securityMatcher("/api/users")
-//                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
-//    }
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChainAuth(HttpSecurity http) throws Exception {
-//        sharedSecurityConfiguration(http);
-//        http
-//                .securityMatcher("/api/v1/auth/**")
-//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
-//    }
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
 
         http
@@ -77,5 +41,12 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Apply JWT filter only to secure endpoints
 
         return http.build();
+    }
+
+    private void sharedSecurityConfiguration(final HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     }
 }

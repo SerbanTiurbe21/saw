@@ -19,7 +19,10 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+    public AuthenticationService(final UserRepository userRepository,
+                                 final PasswordEncoder passwordEncoder,
+                                 final JwtService jwtService,
+                                 final AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -33,8 +36,8 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setRole("USER");
         userRepository.save(user);
-        var token = jwtService.generateToken(user);
 
+        final var token = jwtService.generateToken(user);
         final AuthenticationResponseDTO response = new AuthenticationResponseDTO();
         response.setAccessToken(token);
 
@@ -45,9 +48,9 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        var token = jwtService.generateToken(user);
 
+        final var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        final var token = jwtService.generateToken(user);
         final AuthenticationResponseDTO response = new AuthenticationResponseDTO();
         response.setAccessToken(token);
 

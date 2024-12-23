@@ -17,7 +17,7 @@ public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
-    public ApplicationConfig(UserRepository userRepository) {
+    public ApplicationConfig(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -29,14 +29,14 @@ public class ApplicationConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(final AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 

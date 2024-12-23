@@ -13,12 +13,12 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(final CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO category) {
+    public ResponseEntity<CategoryDTO> createCategory(final @RequestBody CategoryDTO category) {
         return ResponseEntity.ok(categoryService.saveCategory(category));
     }
 
@@ -28,12 +28,12 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer id) {
+    public ResponseEntity<CategoryDTO> getCategoryById(final @PathVariable Integer id) {
         return ResponseEntity.ok(categoryService.getCategoryById(id).orElseThrow(() -> new RuntimeException("Category not found")));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Integer id, @RequestBody CategoryDTO category) {
+    public ResponseEntity<CategoryDTO> updateCategory(final @PathVariable Integer id, final @RequestBody CategoryDTO category) {
         final CategoryDTO existingCategory = categoryService.getCategoryById(id).orElseThrow(() -> new RuntimeException("Category not found"));
         existingCategory.setCategoryName(category.getCategoryName());
         existingCategory.setDescription(category.getDescription());

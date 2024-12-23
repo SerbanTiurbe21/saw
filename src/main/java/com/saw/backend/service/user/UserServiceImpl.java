@@ -12,12 +12,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public UserDTO saveUser(UserDTO user) {
+    public UserDTO saveUser(final UserDTO user) {
         return userRepository.save(user);
     }
 
@@ -27,12 +27,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDTO> getUserById(Integer userId) {
+    public Optional<UserDTO> getUserById(final Integer userId) {
         return Optional.ofNullable(userRepository.findById(Math.toIntExact(userId)).orElseThrow(() -> new RuntimeException("User not found")));
     }
 
     @Override
-    public void deleteUser(Integer userId) {
+    public void deleteUser(final Integer userId) {
         userRepository.deleteById(Math.toIntExact(userId));
     }
 }

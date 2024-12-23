@@ -13,12 +13,12 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(final UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+    public ResponseEntity<UserDTO> createUser(final @RequestBody UserDTO user) {
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
@@ -28,12 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserDTO> getUserById(final @PathVariable Integer id) {
         return ResponseEntity.ok(userService.getUserById(id).orElseThrow(() -> new RuntimeException("User not found")));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO user) {
+    public ResponseEntity<UserDTO> updateUser(final @PathVariable Integer id, final @RequestBody UserDTO user) {
         final UserDTO existingUser = userService.getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
         existingUser.setEmail(user.getEmail());
         existingUser.setPassword(user.getPassword());
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteUser(final @PathVariable Integer id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully!");
     }

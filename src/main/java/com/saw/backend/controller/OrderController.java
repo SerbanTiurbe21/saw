@@ -13,12 +13,12 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(final OrderService orderService) {
         this.orderService = orderService;
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO order) {
+    public ResponseEntity<OrderDTO> createOrder(final @RequestBody OrderDTO order) {
         return ResponseEntity.ok(orderService.saveOrder(order));
     }
 
@@ -28,18 +28,18 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Integer id) {
+    public ResponseEntity<OrderDTO> getOrderById(final @PathVariable Integer id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Integer id, @RequestBody OrderDTO order) {
+    public ResponseEntity<OrderDTO> updateOrder(final @PathVariable Integer id, final @RequestBody OrderDTO order) {
         order.setOrderId(id);
         return ResponseEntity.ok(orderService.saveOrder(order));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteOrder(final @PathVariable Integer id) {
         orderService.deleteOrder(id);
         return ResponseEntity.ok("Order deleted successfully!");
     }
