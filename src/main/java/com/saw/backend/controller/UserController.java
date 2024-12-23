@@ -37,7 +37,7 @@ public class UserController {
         final UserDTO existingUser = userService.getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
         existingUser.setEmail(user.getEmail());
         existingUser.setPassword(user.getPassword());
-        existingUser.setUsername(user.getUsername());
+        existingUser.setName(user.getName());
         return ResponseEntity.ok(userService.saveUser(existingUser));
     }
 
