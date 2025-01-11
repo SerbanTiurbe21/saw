@@ -2,6 +2,8 @@ package com.saw.backend.service.product;
 
 import com.saw.backend.dto.ProductDTO;
 import com.saw.backend.dto.ProductDetailDTO;
+import com.saw.backend.exception.product.ProductDetailsNotEmptyException;
+import com.saw.backend.exception.product.ProductNotFoundException;
 import com.saw.backend.repository.ProductDetailRepository;
 import com.saw.backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -48,7 +50,10 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(final Integer productId, final ProductDTO product) {
         final ProductDTO existingProduct = productRepository.findByProductId(productId);
         if (existingProduct == null) {
-            throw new RuntimeException("Product not found");
+            throw new ProductNotFoundException("Product not found");
+        }
+        if (product.getProductDetails() == null || product.getProductDetails().isEmpty()) {
+            throw new ProductDetailsNotEmptyException("Product details cannot be empty");
         }
 
         existingProduct.setProductName(product.getProductName());
