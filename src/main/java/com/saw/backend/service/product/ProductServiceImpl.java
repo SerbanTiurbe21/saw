@@ -1,6 +1,7 @@
 package com.saw.backend.service.product;
 
 import com.saw.backend.dto.ProductDTO;
+import com.saw.backend.repository.ProductDetailRepository;
 import com.saw.backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductDetailRepository productDetailRepository;
 
-    public ProductServiceImpl(final ProductRepository productRepository) {
+    public ProductServiceImpl(final ProductRepository productRepository, ProductDetailRepository productDetailRepository) {
         this.productRepository = productRepository;
+        this.productDetailRepository = productDetailRepository;
     }
 
     @Override
@@ -34,8 +37,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(final Integer productId) {
         productRepository.deleteById(Math.toIntExact(productId));
+        productDetailRepository.deleteByProductId(productId);
     }
 
     @Override

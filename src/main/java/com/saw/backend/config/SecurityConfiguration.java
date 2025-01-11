@@ -32,7 +32,8 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll() // Allow access without security to auth endpoints
-                        .requestMatchers("/api/categories", "/api/orders", "/api/products", "/api/users").authenticated() // Secure other endpoints
+                        .requestMatchers("/api/categories/**", "/api/orders/**", "/api/products/**", "/api/users/**").authenticated() // Secure other endpoints
+                        .requestMatchers("/api/products/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Apply JWT filter only to secure endpoints
@@ -42,7 +43,7 @@ public class SecurityConfiguration {
 
     private void sharedSecurityConfiguration(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf().disable()
                 .cors(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     }

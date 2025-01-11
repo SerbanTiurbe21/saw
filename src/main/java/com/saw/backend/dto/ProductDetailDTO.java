@@ -1,5 +1,6 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +10,7 @@ public class ProductDetailDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer detailId;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id")
     private ProductDTO product;

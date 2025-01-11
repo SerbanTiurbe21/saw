@@ -1,5 +1,6 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CategoryDTO {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDTO> products;
 

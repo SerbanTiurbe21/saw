@@ -1,5 +1,6 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ProductDTO {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryDTO category;
@@ -26,6 +28,7 @@ public class ProductDTO {
 
     private Integer stock;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDetailDTO> productDetails;
 
