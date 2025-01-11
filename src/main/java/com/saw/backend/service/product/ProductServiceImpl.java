@@ -1,6 +1,7 @@
 package com.saw.backend.service.product;
 
 import com.saw.backend.dto.ProductDTO;
+import com.saw.backend.dto.ProductDetailDTO;
 import com.saw.backend.repository.ProductDetailRepository;
 import com.saw.backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -44,7 +45,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getProductsByCategoryName(final String categoryName) {
-        return productRepository.findProductDTOByCategory_CategoryName(categoryName);
+    public void updateProduct(final Integer productId, final ProductDTO product) {
+        final ProductDTO existingProduct = productRepository.findByProductId(productId);
+        if (existingProduct == null) {
+            throw new RuntimeException("Product not found");
+        }
+
+        existingProduct.setProductName(product.getProductName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setCategory(product.getCategory());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setStock(product.getStock());
+
+        updateProductDetails(existingProduct.getProductDetails(), product.getProductDetails());
+
+        productRepository.save(existingProduct);
+    }
+
+    private void updateProductDetails(final List<ProductDetailDTO> existingDetails, final List<ProductDetailDTO> newDetails) {
+        existingDetails.removeIf(detail -> !newDetails.contains(detail));
+
+        // Update existing details and add new ones
+        for (final ProductDetailDTO newDetail : newDetails) {
+            int index = existingDetails.indexOf(newDetail);
+            if (index != -1) {
+                final ProductDetailDTO existingDetail = existingDetails.get(index);
+                existingDetail.setAttribute(newDetail.getAttribute());
+                existingDetail.setValue(newDetail.getValue());
+            } else {
+                existingDetails.add(newDetail);
+            }
+        }
     }
 }

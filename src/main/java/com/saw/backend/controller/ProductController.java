@@ -33,16 +33,9 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(final @PathVariable Integer id, final @RequestBody ProductDTO product) {
-        final ProductDTO existingProduct = productService.getProductById(id);
-        if(existingProduct != null) {
-            existingProduct.setProductName(product.getProductName());
-            existingProduct.setDescription(product.getDescription());
-            existingProduct.setCategory(product.getCategory());
-            existingProduct.setPrice(product.getPrice());
-            existingProduct.setStock(product.getStock());
-        }
-        return ResponseEntity.ok(productService.saveProduct(product));
+    public ResponseEntity<Void> updateProduct(final @PathVariable Integer id, final @RequestBody ProductDTO product) {
+        productService.updateProduct(id, product);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

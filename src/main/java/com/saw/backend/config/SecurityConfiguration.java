@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/products/**").authenticated()
                         .requestMatchers("/api/products").authenticated()
                         .requestMatchers("/api/products/**", HttpMethod.DELETE.name()).authenticated()
+                        .requestMatchers("/api/products/**", HttpMethod.PUT.name()).authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Apply JWT filter only to secure endpoints

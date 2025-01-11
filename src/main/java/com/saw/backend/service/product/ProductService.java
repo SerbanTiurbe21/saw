@@ -9,5 +9,5 @@ public interface ProductService {
     List<ProductDTO> getAllProducts();
     ProductDTO getProductById(Integer productId);
     void deleteProduct(Integer productId);
-    List<ProductDTO> getProductsByCategoryName(String categoryName);
+    void updateProduct(Integer productId, ProductDTO product);
 }
