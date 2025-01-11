@@ -2,6 +2,7 @@ package com.saw.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -34,6 +35,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/**").permitAll() // Allow access without security to auth endpoints
                         .requestMatchers("/api/categories/**", "/api/orders/**", "/api/products/**", "/api/users/**").authenticated() // Secure other endpoints
                         .requestMatchers("/api/products/**").authenticated()
+                        .requestMatchers("/api/products").authenticated()
+                        .requestMatchers("/api/products/**", HttpMethod.DELETE.name()).authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Apply JWT filter only to secure endpoints

@@ -1,7 +1,6 @@
 package com.saw.backend.controller;
 
 import com.saw.backend.dto.ProductDTO;
-import com.saw.backend.repository.ProductDetailRepository;
 import com.saw.backend.service.product.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

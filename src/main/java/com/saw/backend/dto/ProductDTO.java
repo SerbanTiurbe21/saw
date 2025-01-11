@@ -1,5 +1,6 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -18,7 +19,7 @@ public class ProductDTO {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryDTO category;
