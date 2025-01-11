@@ -1,5 +1,6 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -12,16 +13,13 @@ public class OrderDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserDTO user;
-
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
     private String status;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemDTO> orderItems;
 
@@ -31,14 +29,6 @@ public class OrderDTO {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
     }
 
     public Date getOrderDate() {

@@ -27,9 +27,6 @@ public class UserDTO implements UserDetails {
 
     private String role;
 
-    @OneToMany(mappedBy = "user")
-    private List<OrderDTO> orders;
-
     public Integer getUserId() {
         return userId;
     }
@@ -69,14 +66,6 @@ public class UserDTO implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public List<OrderDTO> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<OrderDTO> orders) {
-        this.orders = orders;
     }
 
     @Override

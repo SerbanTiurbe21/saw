@@ -1,14 +1,19 @@
 package com.saw.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "order_items")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderItemId")
 public class OrderItemDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderItemId;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderDTO order;

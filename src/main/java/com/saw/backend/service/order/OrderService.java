@@ -9,5 +9,4 @@ public interface OrderService {
     List<OrderDTO> getAllOrders();
     OrderDTO getOrderById(Integer orderId);
     void deleteOrder(Integer orderId);
-    List<OrderDTO> getOrdersByUserId(Integer userId);
 }

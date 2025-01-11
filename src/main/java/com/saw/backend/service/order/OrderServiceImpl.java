@@ -34,9 +34,4 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(final Integer orderId) {
         orderRepository.deleteById(Math.toIntExact(orderId));
     }
-
-    @Override
-    public List<OrderDTO> getOrdersByUserId(final Integer userId) {
-        return orderRepository.findOrderDTOByUser_UserId(Math.toIntExact(userId));
-    }
 }
