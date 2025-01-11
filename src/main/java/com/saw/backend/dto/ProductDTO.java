@@ -39,6 +39,9 @@ public class ProductDTO {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemDTO> orderItems;
 
+    @Column(length = 255)
+    private String imageUrl;
+
     public Integer getProductId() {
         return productId;
     }
@@ -101,5 +104,13 @@ public class ProductDTO {
 
     public void setOrderItems(List<OrderItemDTO> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
